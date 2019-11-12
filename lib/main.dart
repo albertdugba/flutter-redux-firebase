@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:screen_lock/dog_list.dart';
 import 'package:screen_lock/dog_model.dart';
+import 'package:screen_lock/new_dog_form.dart';
 
 void main() => runApp(Application());
 
@@ -21,12 +22,22 @@ class Application extends StatelessWidget {
 class HomePage extends StatefulWidget {
   final String title;
 
-  HomePage({Key key, this.title});
+  HomePage({this.title});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  Future _showNewDogForm() async {
+    Dog newDog = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => AddDogForm()));
+
+    if (newDog != null) {
+      initialDogs.add(newDog);
+    }
+  }
+
   List<Dog> initialDogs = []
     ..add(Dog('Ruby', 'Portland, OR, USA',
         'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
@@ -34,13 +45,20 @@ class _HomePageState extends State<HomePage> {
     ..add(Dog('Rod Stewart', 'Prague, CZ',
         'Star good boy on international snooze team.'))
     ..add(Dog('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
-    ..add(Dog('Buddy', 'North Pole, Earth', 'Self proclaimed human lover.'));
+    ..add(Dog('Buddy', 'North Pole, Earth', 'Self proclaimed human lover.'))
+    ..add(Dog('Puma', 'DC', 'Innocent soul'));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _showNewDogForm,
+          )
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(

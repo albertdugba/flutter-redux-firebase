@@ -63,6 +63,24 @@ class _DogCardState extends State<DogCard> {
     );
   }
 
+  var placeholder = Container(
+    width: 100.0,
+    height: 100.0,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Colors.black54, Colors.black, Colors.blueGrey[600]],
+      ),
+    ),
+    alignment: Alignment.center,
+    child: Text(
+      'DOGGO',
+      textAlign: TextAlign.center,
+    ),
+  );
+
   Dog dog;
   _DogCardState(this.dog);
 
